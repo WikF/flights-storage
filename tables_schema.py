@@ -26,9 +26,7 @@ weather_table = (
     ],
 )
 
-#  Metryki dla wybranych lotnisk (granulacja dzienna): średnie opóźnienie przylotu: czas opóźnienia w minutach,
-#  lotnisko przylotu, procent opóźnionych lotów, data średnie opóźnienie wylotu: czas opóźnienia w minutach, 
-# lotnisko wylotu, procent opóźnionych lotów, data
+
 
 airport_metrics_table = (
     "airport_metrics",
@@ -42,8 +40,7 @@ airport_metrics_table = (
     ],
 )
 
-# średnie opóźnienie przylotu: czas opóźnienia w minutach, lotnisko przylotu, procent opóźnionych lotów,
-#  miesiąc średnie opóźnienie wylotu: czas opóźnienia w minutach, lotnisko wylotu, procent opóźnionych lotów, data
+
 flight_metrics_table = (
     "flight_metrics",
     [
