@@ -1,6 +1,5 @@
 # flights-storage
-Data platform gathering data from free flights API and serving it to the world in structured way on premise.
-# flights-storage
+
 1. Baza danych:
     - Baza danych której użyłem to Postgres 
 2. Źródła danych (API)
@@ -36,3 +35,10 @@ Tabela flights:
 [Przykładowa odpowiedź z weatherbit](https://github.com/WikF/flights-storage/blob/main/weather_history.json)
 
 [Przykładowa odpowiedź z KLM API](https://github.com/WikF/flights-storage/blob/main/klm_flights.json)
+
+Mechanizmy zapisujące dane do bazy: 
+
+[Historia pogody](https://github.com/WikF/flights-storage/blob/main/weather_history.py)
+[Bieżąca pogoda](https://github.com/WikF/flights-storage/blob/main/weather_feather.py)
+[Loty KLM](https://github.com/WikF/flights-storage/blob/main/save_flights_from_files_to_db.py)
+
