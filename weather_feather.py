@@ -3,7 +3,7 @@ import requests
 
 from create_tables import db
 
-TOKEN = "1f5211c58e56c158ff8991bf8c3d417b"
+TOKEN = "xxx"
 
 params = {
     'access_key': TOKEN,
