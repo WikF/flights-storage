@@ -18,10 +18,21 @@ Korzystam z weatherbit [link](https://weather.visualcrossing.com/)
 7. UI - zadaniem interfejsu użytkownika będzie zaprezentowanie mu watsty wizualnej przez którą bęzdie mógł podać parametry dla modelu ML przewidującego opóźnienia lotnicze. 
 
 Zrzuty z ekranu z bazy danych:
-<img width="1068" alt="weather conditions" src="https://user-images.githubusercontent.com/25872760/175573833-1708ed3a-a358-4fc9-8b78-f00177003610.PNG">
-<img width="1080" alt="flights" src="https://user-images.githubusercontent.com/25872760/175573836-3ed6d584-117b-4804-8a63-c6ac3f910e2d.PNG">
+
+Tabele:
+
 <img width="294" alt="tabele" src="https://user-images.githubusercontent.com/25872760/175573838-81b3c825-d7ac-49f4-99c0-43753ccd8d92.PNG">
 
+Tabela weather conditions:
+
+<img width="1068" alt="weather conditions" src="https://user-images.githubusercontent.com/25872760/175573833-1708ed3a-a358-4fc9-8b78-f00177003610.PNG">
+
+Tabela flights:
+
+<img width="1080" alt="flights" src="https://user-images.githubusercontent.com/25872760/175573836-3ed6d584-117b-4804-8a63-c6ac3f910e2d.PNG">
+
 [Przykładowa odpowiedź z weather crossing](https://github.com/WikF/flights-storage/blob/main/weather.json)
+
 [Przykładowa odpowiedź z weatherbit](https://github.com/WikF/flights-storage/blob/main/weather_history.json)
+
 [Przykładowa odpowiedź z KLM API](https://github.com/WikF/flights-storage/blob/main/klm_flights.json)
