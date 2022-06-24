@@ -6,7 +6,7 @@ from create_tables import db
 latitude = "35.0497"
 longitude = "-89.9789"
 
-API_KEY = "852BXS8K3HW8XPM7429JEDSKQ"
+API_KEY = "xxx"
 BaseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
 
 

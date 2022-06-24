@@ -3,7 +3,7 @@
 import json
 import requests
 
-TOKEN = "1f5211c58e56c158ff8991bf8c3d417b"
+TOKEN = "xxx"
 
 params = {
     'access_key': TOKEN,

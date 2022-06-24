@@ -3,14 +3,14 @@ import requests
 
 from create_tables import db
 
-TOKEN = "1f5211c58e56c158ff8991bf8c3d417b"
+TOKEN = "xxx"
 
 params = {
     'access_key': TOKEN,
     'limit': '1',
 }
 
-API_KEY="86b4c54cb16944898969c6d9d0b9a20d"
+API_KEY="xxx"
 
 api_result = requests.get(f"https://api.weatherbit.io/v2.0/history/daily?start_date=2022-06-06&end_date=2022-06-07&city=Fairbanks&key={API_KEY}")
 api_response = api_result.json()

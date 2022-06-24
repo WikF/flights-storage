@@ -4,7 +4,7 @@ import requests
 
 from create_tables import db
 
-BIT_API_KEY="86b4c54cb16944898969c6d9d0b9a20d"
+BIT_API_KEY="xxx"
 
 
 def return_data_for_weather_hist_api(limit=10):
