@@ -7,7 +7,7 @@ import requests
 latitude = "35.0497"
 longitude = "-89.9789"
 
-API_KEY = "UUY9J867T5PDBGGY7QX4UZ9ND"
+API_KEY = "xxx"
 BaseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
 
 logging.basicConfig(level=logging.INFO)
