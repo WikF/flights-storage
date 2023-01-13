@@ -1,0 +1,7 @@
+
+.idea/dataSources.xml
+*.iml
+*.xml
+*.meta
+*.zip
+*.pyc

@@ -16,3 +16,4 @@ Korzystam z weatherbit [link](https://weather.visualcrossing.com/)
 5. ML model - model uczenia maszynowego, przyjmujący za parametry dane lotnicze i dane pogodowe i zwracający status lotu.
 6. Predicting funcionality - mrchanizm który pobierze argumenty od użytkownika, odpyta model ML i zwróci rezultat - czy lot będzie opóźniony czy nie 
 7. UI - zadaniem interfejsu użytkownika będzie zaprezentowanie mu watsty wizualnej przez którą bęzdie mógł podać parametry dla modelu ML przewidującego opóźnienia lotnicze. 
+

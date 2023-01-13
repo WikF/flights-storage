@@ -2,9 +2,9 @@ import datetime
 
 import requests
 
-from create_tables import db
+from db_utils.create_tables import db
 
-BIT_API_KEY="xxx"
+BIT_API_KEY="319d5773811d48fda3d5816c308e4787"
 
 
 def return_data_for_weather_hist_api(limit=10):
@@ -32,6 +32,7 @@ def save_weather_data_to_db(limit=10):
             api_result = requests.get(
         f"https://api.weatherbit.io/v2.0/history/daily?start_date={START_DATETIME}&end_date={END_DATETIME}&lat={LAT}&lon={LON}&key={BIT_API_KEY}")
             result = api_result.json()
+            print(result)
             city_name = result.get("city_name")
             lat = result.get("lat")
             lon = result.get("lon")
@@ -74,4 +75,4 @@ def save_weather_data_to_db(limit=10):
                 VALUES ('{lat}', '{lon}', '{city_name}', '{rh}', '{ax_wind_spd_ts}', {t_ghi}, '{max_wind_spd}', '{solar_rad}', '{wind_gust_spd}', '{max_temp_ts}', '{min_temp_ts}', '{clouds}', '{max_dni}', '{precip_gpm}', '{wind_spd}','{slp}', '{ts}', '{max_ghi}', '{temp}', '{pres}', '{dni}', '{dewpt}', '{snow}', '{dhi}', '{precip}', '{wind_dir}', '{max_dhi}', '{ghi}', '{max_temp}', '{t_dni}', '{max_uv}', '{t_dhi}', '{timestamp}', '{t_solar_rad}', '{min_temp}', '{max_wind_dir}');
             """)
 
-save_weather_data_to_db(800)
+save_weather_data_to_db(10)

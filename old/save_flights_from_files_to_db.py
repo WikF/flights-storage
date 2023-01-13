@@ -1,10 +1,10 @@
-from create_tables import db
+from db_utils.create_tables import db
 
 import json
 
 flight_numbers=[]
 import os
-for root, dirs, files in os.walk("jsons"):
+for root, dirs, files in os.walk("../jsons"):
     for name in files:
         with open(f'jsons/{name}') as f:
             data = list(json.load(f).items())

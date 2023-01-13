@@ -1,38 +1,61 @@
-import json
-import requests
+import logging
+from psycopg2.extras import LoggingConnection
 
-from create_tables import db
+import psycopg2
+import requests
 
 latitude = "35.0497"
 longitude = "-89.9789"
 
-API_KEY = "xxx"
+API_KEY = "UUY9J867T5PDBGGY7QX4UZ9ND"
 BaseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("loggerinformation")
+ml_db = psycopg2.connect("postgres://postgres@localhost:5433/pgml_development")
 
-def return_data_for_weather_hist_api(limit=10):
-    flights = db.prepare(f"select * from data_to_fetch_weather_hist limit {limit}")
-    return flights
 
+def return_data_for_weather_hist_api(limit=10, flight_id=None):
+    if not flight_id:
+        with ml_db.cursor() as curs:
+            curs.execute(f"select * from public.data_to_fetch_weather limit {limit}")
+            return curs.fetchall()
+    with ml_db.cursor() as curs:
+        curs.execute(f"select * from public.data_to_fetch_weather where flight_id='{flight_id}' limit {limit}")
+        return curs.fetchall()
 
 def all_existing_records():
-    records = db.prepare(f"""
+    with ml_db.cursor() as curs:
+        curs.execute(f"""
         select distinct lat, lon, datetime
         from weather_hist
 """)
-    return records
+        return curs.fetchall()
 
 
-def save_weather_data_to_db(limit=10):
-    flights = return_data_for_weather_hist_api(limit)
+def records_for_flight_id(flight_id):
+    with ml_db.cursor() as curs:
+        curs.execute(f"""
+        select distinct lat, lon, datetime
+        from weather_hist
+""")
+        return curs.fetchall()
+
+
+def save_weather_data_to_db(flight_id=None, limit=900):
+    flights = return_data_for_weather_hist_api(limit=limit, flight_id=flight_id)
     weather_reports = [i for i in all_existing_records()]
-    for flight in flights():
-        if (flight[0], flight[1], flight[2].date().isoformat()) not in weather_reports:
-            LAT = flight[0]
-            LON = flight[1]
-            DATETIME = flight[2].isoformat()
+
+    if flight_id:
+        weather_reports = [i for i in records_for_flight_id(flight_id)]
+    for flight in flights:
+        if (flight[1], flight[2], flight[3].date().isoformat()) not in weather_reports:
+            LAT = flight[1]
+            LON = flight[2]
+            DATETIME = flight[3].isoformat()[:-7]
             api_result = requests.get(
                 f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{LAT},{LON}/{DATETIME}?unitGroup=metric&key={API_KEY}&include=current")
+            print(api_result.text)
             print(api_result.json().get("currentConditions"))
             result = api_result.json()
             date = result.get("days")[0].get("datetime")
@@ -63,13 +86,10 @@ def save_weather_data_to_db(limit=10):
             uvindex = result.get("currentConditions").get("uvindex")
             conditions = result.get("currentConditions").get("conditions")
 
-
-            db.execute(f"""INSERT INTO public.weather_hist(
+            with ml_db.cursor() as curs:
+                curs.execute(f"""INSERT INTO public.weather_hist(
                 lat, lon, temp, feelslike, humidity, dew, precip, precipprob, snow, snowdepth, preciptype, windgust, windspeed, winddir, pressure,
 visibility, cloudcover, solarradiation, solarenergy, uvindex, conditions, datetime)
                 VALUES ('{lat}', '{lon}', '{temp}', '{feelslike}', '{humidity}', '{dew}', '{precip}', '{precipprob}', '{snow}', '{snowdepth}', '{preciptype}', '{windgust}', '{windspeed}', '{winddir}','{pressure}', '{visibility}', '{cloudcover}', '{solarradiation}', '{solarenergy}', '{uvindex}', '{conditions}', '{timestamp}');
             """)
-
-
-save_weather_data_to_db(150)
 

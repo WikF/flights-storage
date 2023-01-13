@@ -1,11 +1,11 @@
-import postgresql
+import logging
 
-db = postgresql.open("pq://postgres:password@localhost/flights_predictor")
+import psycopg2
+from psycopg2.extras import LoggingConnection
 
 
 def create_tables():
-
-    db.execute("""CREATE TABLE IF NOT EXISTS 
+    create_flights = """CREATE TABLE IF NOT EXISTS 
                flights (
                 flight_id text primary key,
                 flight_number text,
@@ -20,9 +20,9 @@ def create_tables():
                 departure_lattitude  text, 
                 departure_airport_name text, 
                 departure_datetime text
-               )""")
+               )"""
 
-    db.execute("""CREATE TABLE IF NOT EXISTS 
+    create_weather_conditions = """CREATE TABLE IF NOT EXISTS 
                weather_conditions (
              lat text,
              lon text,
@@ -60,22 +60,38 @@ def create_tables():
              t_solar_rad text,
              min_temp text, 
              max_wind_dir text
-        )""")
-    db.execute("""CREATE TABLE IF NOT EXISTS
-    data_to_fetch_weather_hist as 
+        )"""
+    create_data_to_featch = """
+        CREATE OR REPLACE VIEW
+    data_to_fetch_weather as 
     select
     distinct
+    flight_id,
     arrival_lattitude as lat, arrival_longitude
     lon, arrival_datetime::timestamptz as datetime
     from flights
     union
     all
     select
+    flight_id,
     departure_lattitude, departure_longitude,
     departure_datetime::timestamptz
     at
     time
     zone
     'utc'
-    from flights""")
+    from flights"""
+
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger("loggerinformation")
+
+    ml_db = psycopg2.connect("postgres://postgres@localhost:5433/pgml_development",
+                             connection_factory=LoggingConnection)
+    ml_db.initialize(logger)
+    with ml_db.cursor() as curs:
+        curs.execute(create_data_to_featch)
+        curs.execute(create_weather_conditions)
+        curs.execute(create_flights)
+
+
 create_tables()
